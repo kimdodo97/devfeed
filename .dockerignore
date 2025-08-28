@@ -1,0 +1,70 @@
+# .dockerignore - Docker 이미지 빌드 시 제외할 파일들
+
+# Git 관련
+.git
+.gitignore
+.gitattributes
+
+# 빌드 결과물 (JAR는 포함해야 하므로 주의)
+build/
+!build/libs/*.jar
+target/
+*.tmp
+
+# 개발 도구
+.gradle
+gradlew
+gradlew.bat
+gradle/
+
+# IDE 설정
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# 로그 파일
+*.log
+logs/
+
+# 환경변수 (보안)
+config/env/.env.*
+!config/env/.env.example
+.env
+*.env
+
+# Docker 관련
+docker-compose*.yml
+Dockerfile*
+.dockerignore
+
+# 문서
+docs/
+README.md
+*.md
+
+# 테스트 결과
+test-results/
+coverage/
+
+# 임시 파일
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# 프론트엔드 (별도 빌드)
+frontend/
+node_modules/
+
+# 개발용 스크립트
+scripts/
+volumes/
+
+# Spring Boot 개발 도구 관련
+.springBeans
+.sts4-cache
+HELP.md

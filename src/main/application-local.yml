@@ -1,0 +1,60 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/devfeed}
+    username: ${DATABASE_USERNAME:developer}
+    password: ${DATABASE_PASSWORD:dev123!}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000  # 10분
+
+# DevFeed Phase 1 설정
+devfeed:
+  rss:
+    sources:
+      - name: "우아한형제들 기술블로그"
+        url: "https://techblog.woowahan.com/feed/"
+        category: "TECH_BLOG"
+        enabled: true
+      - name: "카카오 기술블로그"
+        url: "https://tech.kakao.com/feed/"
+        category: "TECH_BLOG"
+        enabled: true
+      - name: "네이버 D2"
+        url: "https://d2.naver.com/d2.atom"
+        category: "TECH_BLOG"
+        enabled: true
+    collection:
+      interval: 300000  # 5분마다 (Phase 1에서는 단순 스케줄링)
+      batch-size: 50
+      timeout: 10000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.devfeed: DEBUG
+    org.springframework.cache: DEBUG
